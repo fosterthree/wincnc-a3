@@ -1,0 +1,1086 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WINCNC — PORTRAIT CONTROLLER MOCKUP</title><style>
+*{box-sizing:border-box}html{color-scheme:light}body{margin:0;background:#e5e4ed;font-family:Inter,"Segoe UI",Arial,sans-serif;color:#262535}main{position:relative;width:min(100vw,768px,75svh);margin:auto;container-type:inline-size;background:white}#screen{display:block;width:100%;height:auto;user-select:none}.hit{position:absolute;appearance:none;-webkit-appearance:none;padding:0;margin:0;border:0;border-radius:4px;background:transparent;color:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}.hit:hover:enabled{background:#6d58cc13}.hit:active:enabled{background:#5135bc27}.hit:focus-visible{outline:2px solid #a68ae5;outline-offset:-2px}.hit:disabled{cursor:default;background:#eeeeee45}.hit.menu{border-radius:0}.hit.menu[aria-expanded=true],.hit.menu:hover{background:#eee9ff24}.hit.text,.hit.number{font:500 1.9cqw Menlo,Consolas,monospace;text-align:left;cursor:text}.hit.text{font-size:1.47cqw;color:#29263a;background:transparent;text-transform:uppercase;padding-left:.35cqw}.hit.number{appearance:textfield;-moz-appearance:textfield;padding-left:1.17cqw}.hit.number:focus{background:white;color:#262535}.hit.number::-webkit-inner-spin-button,.hit.number::-webkit-outer-spin-button{appearance:none}.hit.range{cursor:ew-resize}.hit.range::-webkit-slider-runnable-track{height:100%;background:transparent}.hit.range::-webkit-slider-thumb{appearance:none;width:1px;height:100%;background:transparent}.hit.range::-moz-range-track,.hit.range::-moz-range-thumb{border:0;background:transparent}#control-override{writing-mode:vertical-lr;direction:rtl;cursor:ns-resize;opacity:0;touch-action:none}#control-override::-webkit-slider-thumb{width:100%;height:1px}main:has(#control-override:focus-visible) #override-knob{stroke-width:3}main:has(#control-yp:focus-visible) #yp-face,main:has(#control-ym:focus-visible) #ym-face,main:has(#control-xp:focus-visible) #xp-face,main:has(#control-xm:focus-visible) #xm-face{stroke:#6047b3;stroke-width:2.5}.popup{position:absolute;z-index:3;min-width:22cqw;width:max-content;max-width:82cqw;max-height:90%;overflow-y:auto;background:white;border:1px solid #ccc8db;border-radius:5px;padding:.55cqw;box-shadow:0 6px 20px #241d4033}.popup button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:2.2cqw;padding:.85cqw .95cqw;background:white;color:#292537;border:0;border-radius:3px;font:620 1.45cqw Inter,Arial,sans-serif;text-align:left;cursor:pointer}.popup button:hover,.popup button:focus-visible{background:#e9e6fc;color:#493593;outline:none}.popup small{color:#6b647b;font:500 1.28cqw Menlo,monospace}.popup hr{border:0;border-top:1px solid #e5e1ec;margin:.4cqw .5cqw}.sr{position:absolute;width:1px;height:1px;margin:-1px;clip-path:inset(50%);overflow:hidden}dialog{width:min(400px,88vw);border:1px solid #cecadd;border-radius:10px;padding:20px;box-shadow:0 12px 52px #2b24434a;color:#262535}dialog::backdrop{background:#201b353f}.modalhead{display:flex;align-items:center;justify-content:space-between;gap:12px}h2{font-size:17px;margin:0}dialog button{border:0;border-radius:5px;padding:8px 12px;cursor:pointer;background:#eae6fb;color:#493994;font-weight:700}dialog p,dialog label{white-space:pre-line;font:550 12px/1.6 Inter,Arial,sans-serif}.history{padding:0;max-height:50vh;overflow:auto;list-style:none;font:12px/1.5 Menlo,Consolas,monospace}.history li{display:flex;gap:12px;margin-bottom:5px}.history span{color:#6d5f92}dialog input{max-width:7em} [hidden]{display:none!important}@media print{body{background:white}main{width:100%}.hit,.popup,dialog{display:none}}
+</style></head><body><main id="controller" aria-label="WINCNC ROUTER CONTROLLER SIMULATION"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 1024" width="768" height="1024" aria-hidden="true" id="screen">
+<rect x="0" y="0" width="768" height="1024" fill="#f1f1f7" rx="0"/>
+<rect x="0" y="0" width="768" height="37" fill="#272636" rx="0"/>
+<rect x="0" y="35" width="768" height="2" fill="#7d71f5" rx="0"/>
+<text x="38.5" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">FILE</text>
+<text x="131.5" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">CONFIGURATION</text>
+<text x="239.0" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">SETTINGS</text>
+<text x="308.5" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">VIEW</text>
+<text x="376.5" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">OPTIONS</text>
+<text x="448.0" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">UNITS</text>
+<text x="521.5" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">TRANSIT</text>
+<text x="592.5" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">JOG</text>
+<text x="651.0" y="22" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.6" fill="#f0effb" font-weight="660" text-anchor="middle" letter-spacing=".1">HELP</text>
+<rect x="14" y="51" width="352" height="181" fill="#e2e1ec" rx="9"/>
+<rect x="14" y="50" width="352" height="181" fill="white" rx="9" stroke="#dddce8"/>
+<rect x="29" y="65" width="222" height="38" fill="#fbfbfd" rx="5" stroke="#dddce8"/>
+<text x="38" y="90" font-family="Menlo, Consolas, monospace" font-size="18" fill="#5343aa" font-weight="720" text-anchor="start">›</text>
+<text x="51" y="88" font-family="Menlo, Consolas, monospace" font-size="11" fill="#77768c" font-weight="500" text-anchor="start" id="mdiHint">MDI COMMAND…</text>
+<rect x="259" y="65" width="42" height="38" fill="#f7f7fb" rx="5" stroke="#dddce8"/>
+<path transform="translate(269.5833333333333 73.58333333333333) scale(0.8333333333333334)" d="M3 6h7l2 2h9v3H6l-2 8H3z M6 11h16l-3 8H4z" stroke="#262535" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<rect x="309" y="65" width="42" height="38" fill="#4fdb65" rx="5" id="start-bg"/>
+<path d="M324 76 L336 84 L324 92 Z" fill="white" id="run-icon"/>
+<rect x="29" y="113" width="322" height="103" fill="#252535" rx="5"/>
+<text x="39" y="131" font-family="Menlo, Consolas, monospace" font-size="10.2" fill="#a6a0bd" font-weight="450" text-anchor="start" id="time0"></text>
+<text x="101" y="131" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#e8e4fa" font-weight="500" text-anchor="start" id="msg0"></text>
+<text x="39" y="149" font-family="Menlo, Consolas, monospace" font-size="10.2" fill="#a6a0bd" font-weight="450" text-anchor="start" id="time1"></text>
+<text x="101" y="149" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#e8e4fa" font-weight="500" text-anchor="start" id="msg1"></text>
+<text x="39" y="167" font-family="Menlo, Consolas, monospace" font-size="10.2" fill="#a6a0bd" font-weight="450" text-anchor="start" id="time2">09:41:02</text>
+<text x="101" y="167" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#e8e4fa" font-weight="500" text-anchor="start" id="msg2">CONTROLLER READY</text>
+<text x="39" y="185" font-family="Menlo, Consolas, monospace" font-size="10.2" fill="#a6a0bd" font-weight="450" text-anchor="start" id="time3">09:41:04</text>
+<text x="101" y="185" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#e8e4fa" font-weight="500" text-anchor="start" id="msg3">FIXTURE_PLATES.TAP LOADED</text>
+<text x="39" y="203" font-family="Menlo, Consolas, monospace" font-size="10.2" fill="#a6a0bd" font-weight="450" text-anchor="start" id="time4">09:41:06</text>
+<text x="101" y="203" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#e8e4fa" font-weight="500" text-anchor="start" id="msg4">T4 PICKED UP</text>
+<rect x="14" y="243" width="352" height="91" fill="#e2e1ec" rx="9"/>
+<rect x="14" y="242" width="352" height="91" fill="white" rx="9" stroke="#dddce8"/>
+<rect x="29" y="255" width="102" height="65" fill="#f7f7fb" rx="5" stroke="#dddce8"/>
+<polygon points="87.53,273.02 87.89,274.17 90.43,274.10 90.43,277.90 87.89,277.83 87.53,278.98 87.43,279.22 86.87,280.29 88.72,282.03 86.03,284.72 84.29,282.87 83.22,283.43 82.98,283.53 81.83,283.89 81.90,286.43 78.10,286.43 78.17,283.89 77.02,283.53 76.78,283.43 75.71,282.87 73.97,284.72 71.28,282.03 73.13,280.29 72.57,279.22 72.47,278.98 72.11,277.83 69.57,277.90 69.57,274.10 72.11,274.17 72.47,273.02 72.57,272.78 73.13,271.71 71.28,269.97 73.97,267.28 75.71,269.13 76.78,268.57 77.02,268.47 78.17,268.11 78.10,265.57 81.90,265.57 81.83,268.11 82.98,268.47 83.22,268.57 84.29,269.13 86.03,267.28 88.72,269.97 86.87,271.71 87.43,272.78" fill="none" stroke="#262535" stroke-width="1.45" stroke-linejoin="round"/>
+<circle cx="80" cy="276" r="3.5" fill="none" stroke="#262535" stroke-width="1.45"/>
+<text x="80" y="306" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="700" text-anchor="middle">WARMUP</text>
+<rect x="139" y="255" width="102" height="65" fill="#f7f7fb" rx="5" stroke="#dddce8"/>
+<path transform="translate(179 265) scale(0.9166666666666666)" d="M3 11 12 3l9 8 M6 10v10h5v-6h3v6h4V10" stroke="#262535" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="190" y="306" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="700" text-anchor="middle">HOME</text>
+<rect x="249" y="255" width="102" height="65" fill="#f7f7fb" rx="5" stroke="#dddce8"/>
+<path transform="translate(289 265) scale(0.9166666666666666)" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M9 17V7h4a3 3 0 0 1 0 6H9" stroke="#262535" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="300" y="306" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="700" text-anchor="middle">PARK</text>
+<rect x="14" y="346" width="352" height="197" fill="#e2e1ec" rx="9"/>
+<rect x="14" y="345" width="352" height="197" fill="white" rx="9" stroke="#dddce8"/>
+<path transform="translate(30 361) scale(0.75)" d="M5 18V4 M5 4 2 7 M5 4l3 3 M5 18h15 M20 18l-3-3 M20 18l-3 3 M5 18l8-8" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="58" y="376" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="17" fill="#262535" font-weight="750" text-anchor="start" letter-spacing=".15">POSITION</text>
+<rect x="307" y="359" width="44" height="21" fill="#ebebed" rx="4" id="mode-bg"/>
+<text x="329" y="374" font-family="Menlo, Consolas, monospace" font-size="10.5" fill="#262535" font-weight="650" text-anchor="middle" id="mode-text">G54</text>
+<text x="47.5" y="402" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="10.2" fill="#656579" font-weight="650" text-anchor="middle" letter-spacing=".65">AXIS</text>
+<text x="79" y="402" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="10.2" fill="#656579" font-weight="650" letter-spacing=".65" id="position-col">POSITION <tspan font-weight="400" id="position-unit">(IN)</tspan></text>
+<text x="197" y="402" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="10.2" fill="#656579" font-weight="650" letter-spacing=".65" id="speed-col">SPEED <tspan font-weight="400" id="speed-unit">(IN/MIN)</tspan></text>
+<rect x="30" y="411" width="35" height="32" fill="#ffebec" rx="5"/>
+<text x="47.5" y="432" font-family="Menlo, Consolas, monospace" font-size="14" fill="#9e414e" font-weight="700" text-anchor="middle">X</text>
+<rect x="73" y="411" width="110" height="32" fill="#f7f7f8" rx="4" stroke="#dddce8"/>
+<text x="82" y="433" font-family="Menlo, Consolas, monospace" font-size="15" fill="#262535" font-weight="520" text-anchor="start" id="posX-text">16.000</text>
+<rect x="191" y="411" width="103" height="32" fill="#f7f7f8" rx="4" stroke="#dddce8"/>
+<text x="200" y="433" font-family="Menlo, Consolas, monospace" font-size="15" fill="#262535" font-weight="520" text-anchor="start" id="feedX-text">500</text>
+<rect x="30" y="451" width="35" height="32" fill="#e1f4e9" rx="5"/>
+<text x="47.5" y="472" font-family="Menlo, Consolas, monospace" font-size="14" fill="#226640" font-weight="700" text-anchor="middle">Y</text>
+<rect x="73" y="451" width="110" height="32" fill="#f7f7f8" rx="4" stroke="#dddce8"/>
+<text x="82" y="473" font-family="Menlo, Consolas, monospace" font-size="15" fill="#262535" font-weight="520" text-anchor="start" id="posY-text">50.000</text>
+<rect x="191" y="451" width="103" height="32" fill="#f7f7f8" rx="4" stroke="#dddce8"/>
+<text x="200" y="473" font-family="Menlo, Consolas, monospace" font-size="15" fill="#262535" font-weight="520" text-anchor="start" id="feedY-text">500</text>
+<rect x="30" y="491" width="35" height="32" fill="#e4efff" rx="5"/>
+<text x="47.5" y="512" font-family="Menlo, Consolas, monospace" font-size="14" fill="#355c96" font-weight="700" text-anchor="middle">Z</text>
+<rect x="73" y="491" width="110" height="32" fill="#f7f7f8" rx="4" stroke="#dddce8"/>
+<text x="82" y="513" font-family="Menlo, Consolas, monospace" font-size="15" fill="#262535" font-weight="520" text-anchor="start" id="posZ-text">0.250</text>
+<rect x="191" y="491" width="103" height="32" fill="#f7f7f8" rx="4" stroke="#dddce8"/>
+<text x="200" y="513" font-family="Menlo, Consolas, monospace" font-size="15" fill="#262535" font-weight="520" text-anchor="start" id="feedZ-text">100</text>
+<text x="327" y="402" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="10.2" fill="#656579" font-weight="650" text-anchor="middle" letter-spacing=".65">FEED %</text>
+<rect x="325" y="417" width="4" height="86" fill="#e5e2f1" rx="2"/>
+<rect x="325" y="461.1025641025641" width="4" height="41.89743589743591" fill="#7d71f5" rx="2" id="override-fill"/>
+<line x1="316" y1="503.0" x2="320" y2="503.0" stroke="#dddce8"/>
+<line x1="316" y1="483.15384615384613" x2="320" y2="483.15384615384613" stroke="#dddce8"/>
+<line x1="313" y1="461.1025641025641" x2="320" y2="461.1025641025641" stroke="#89859c"/>
+<line x1="316" y1="439.05128205128204" x2="320" y2="439.05128205128204" stroke="#dddce8"/>
+<line x1="316" y1="417.0" x2="320" y2="417.0" stroke="#dddce8"/>
+<circle cx="327" cy="461.1025641025641" r="6" fill="white" stroke="#5343aa" stroke-width="1.7" id="override-knob"/>
+<text x="327" y="522" font-family="Menlo, Consolas, monospace" font-size="11" fill="#5343aa" font-weight="700" text-anchor="middle" id="override-value">100%</text>
+<rect x="14" y="555" width="352" height="284" fill="#e2e1ec" rx="9"/>
+<rect x="14" y="554" width="352" height="284" fill="white" rx="9" stroke="#dddce8"/>
+<path transform="translate(30 570) scale(0.75)" d="M12 2v20 M2 12h20 M12 2 9 5 M12 2l3 3 M22 12l-3-3 M22 12l-3 3 M12 22l-3-3 M12 22l3-3 M2 12l3-3 M2 12l3 3" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="58" y="585" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="17" fill="#262535" font-weight="750" text-anchor="start" letter-spacing=".15">JOG CONTROLS</text>
+<rect x="29" y="611" width="197" height="126" fill="white" rx="9" stroke="#e5e6e8" stroke-width="1.5"/>
+<rect x="239" y="611" width="112" height="126" fill="white" rx="9" stroke="#e5e6e8" stroke-width="1.5"/>
+<path d="M88.500 628.500Q88.5 624.5 92.500 624.500L162.500 624.500Q166.5 624.5 166.500 628.500L166.500 633.000Q166.5 637 163.672 639.828L146.328 657.172Q143.5 660 139.500 660.000L115.500 660.000Q111.5 660 108.672 657.172L91.328 639.828Q88.5 637 88.500 633.000Z" fill="#f8f9fb" stroke="#e6e5ef" stroke-width="1.65" id="yp-face"/>
+<path transform="translate(120.13 634.88) scale(0.6141666666666666)" d="M12 20V4 M5 11l7-7 7 7" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<path d="M42.500 649.000Q42.5 645 46.500 645.000L78.853 645.000Q82.85283912309967 645 85.681 647.828L103.024 665.172Q105.85283912309967 668 105.853 672.000L105.853 676.000Q105.85283912309967 680 103.024 682.828L85.681 700.172Q82.85283912309967 703 78.853 703.000L46.500 703.000Q42.5 703 42.500 699.000Z" fill="#f8f9fb" stroke="#e6e5ef" stroke-width="1.65" id="xm-face"/>
+<path transform="translate(59.63 666.63) scale(0.6141666666666666)" d="M20 12H4 M11 5l-7 7 7 7" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<path d="M212.500 649.000Q212.5 645 208.500 645.000L176.147 645.000Q172.14716087690033 645 169.319 647.828L151.976 665.172Q149.14716087690033 668 149.147 672.000L149.147 676.000Q149.14716087690033 680 151.976 682.828L169.319 700.172Q172.14716087690033 703 176.147 703.000L208.500 703.000Q212.5 703 212.500 699.000Z" fill="#f8f9fb" stroke="#e6e5ef" stroke-width="1.65" id="xp-face"/>
+<path transform="translate(180.63 666.63) scale(0.6141666666666666)" d="M4 12h16 M13 5l7 7-7 7" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<path d="M88.500 719.500Q88.5 723.5 92.500 723.500L162.500 723.500Q166.5 723.5 166.500 719.500L166.500 715.000Q166.5 711 163.672 708.172L146.328 690.828Q143.5 688 139.500 688.000L115.500 688.000Q111.5 688 108.672 690.828L91.328 708.172Q88.5 711 88.500 715.000Z" fill="#f8f9fb" stroke="#e6e5ef" stroke-width="1.65" id="ym-face"/>
+<path transform="translate(120.13 698.38) scale(0.6141666666666666)" d="M12 4v16 M5 13l7 7 7-7" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<rect x="252.5" y="624.5" width="85" height="44.5" fill="#f8f9fb" rx="4" stroke="#e6e5ef" stroke-width="1.65" id="zp-face"/>
+<g transform="translate(295 646.75) scale(0.67)">
+<path transform="translate(-11 -13) scale(0.9166666666666666)" d="M12 20V4 M5 11l7-7 7 7" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<path d="M-7 10h14" stroke="#5343aa" stroke-width="1.6041666666666667" stroke-linecap="round"/>
+</g>
+<rect x="252.5" y="679" width="85" height="44.5" fill="#f8f9fb" rx="4" stroke="#e6e5ef" stroke-width="1.65" id="zm-face"/>
+<g transform="translate(295 701.25) scale(0.67)">
+<path transform="translate(-11 -13) scale(0.9166666666666666)" d="M12 4v16 M5 13l7 7 7-7" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<path d="M-7 10h14" stroke="#5343aa" stroke-width="1.6041666666666667" stroke-linecap="round"/>
+</g>
+<rect x="29.0" y="751" width="74.5" height="33" fill="#f7f7fb" rx="5" stroke="#dddce8" id="inc0-bg"/>
+<text x="66.25" y="771.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="670" text-anchor="middle" id="inc0-text">1″</text>
+<rect x="111.5" y="751" width="74.5" height="33" fill="#eae7ff" rx="5" stroke="#aa9ff4" id="inc1-bg"/>
+<text x="148.75" y="771.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#5343aa" font-weight="670" text-anchor="middle" id="inc1-text">0.1″</text>
+<rect x="194.0" y="751" width="74.5" height="33" fill="#f7f7fb" rx="5" stroke="#dddce8" id="inc2-bg"/>
+<text x="231.25" y="771.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="670" text-anchor="middle" id="inc2-text">0.01″</text>
+<rect x="276.5" y="751" width="74.5" height="33" fill="#f7f7fb" rx="5" stroke="#dddce8" id="inc3-bg"/>
+<text x="313.75" y="771.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="670" text-anchor="middle" id="inc3-text">0.001″</text>
+<rect x="29" y="792" width="102" height="33" fill="#f7f7fb" rx="5" stroke="#dddce8" id="fast-bg"/>
+<text x="80.0" y="812.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="670" text-anchor="middle" id="fast-text">FAST</text>
+<rect x="139" y="792" width="102" height="33" fill="#f7f7fb" rx="5" stroke="#dddce8" id="medium-bg"/>
+<text x="190.0" y="812.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="670" text-anchor="middle" id="medium-text">MEDIUM</text>
+<rect x="249" y="792" width="102" height="33" fill="#f7f7fb" rx="5" stroke="#dddce8" id="slow-bg"/>
+<text x="300.0" y="812.5" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="12" fill="#262535" font-weight="670" text-anchor="middle" id="slow-text">SLOW</text>
+<rect x="14" y="851" width="352" height="160" fill="#e2e1ec" rx="9"/>
+<rect x="14" y="850" width="352" height="160" fill="white" rx="9" stroke="#dddce8"/>
+<rect x="29" y="865" width="322" height="46" fill="#f7f7fb" rx="6" stroke="#dddce8" id="spindle-bg"/>
+<path transform="translate(41 878) scale(0.8333333333333334)" d="M3 10a9 9 0 0 1 15-5l2 2 M20 2v5h-5 M21 14a9 9 0 0 1-15 5l-2-2 M4 22v-5h5" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="72" y="895" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="16" fill="#262535" font-weight="730" text-anchor="start">SPINDLE</text>
+<circle cx="306" cy="888" r="4" fill="#e04343" id="spindle-dot"/>
+<text x="339" y="893" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#656579" font-weight="680" text-anchor="end" id="spindle-state">OFF</text>
+<text x="30" y="940" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="10.2" fill="#656579" font-weight="650" text-anchor="start" letter-spacing=".65">SPINDLE SPEED</text>
+<text x="350" y="940" font-family="Menlo, Consolas, monospace" font-size="14" fill="#5343aa" font-weight="650" text-anchor="end" id="rpm-text">12,000 RPM</text>
+<rect x="32" y="957" width="316" height="5" fill="#e5e2f1" rx="2"/>
+<rect x="32" y="957" width="209.48314606741573" height="5" fill="#7d71f5" rx="2" id="rpm-fill"/>
+<circle cx="241.48314606741573" cy="959.5" r="7" fill="white" stroke="#5343aa" stroke-width="2" id="rpm-knob"/>
+<text x="30" y="988" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#656579" font-weight="500" text-anchor="start">200</text>
+<text x="350" y="988" font-family="Menlo, Consolas, monospace" font-size="10.3" fill="#656579" font-weight="500" text-anchor="end">18,000 RPM</text>
+<rect x="378" y="51" width="376" height="960" fill="#e2e1ec" rx="9"/>
+<rect x="378" y="50" width="376" height="960" fill="white" rx="9" stroke="#dddce8"/>
+<rect x="392.0" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool1-bg"/>
+<g transform="translate(405.0 74) scale(.77)" color="#656579" id="tool1-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v10l-2 3-2-3z M-2 6l4-3 M-2 10l4-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="405.0" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool1-label">T1</text>
+<rect x="421.2" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool2-bg"/>
+<g transform="translate(434.2 74) scale(.77)" color="#656579" id="tool2-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v13h-4z M-2 7l4-3 M-2 11l4-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="434.2" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool2-label">T2</text>
+<rect x="450.4" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool3-bg"/>
+<g transform="translate(463.4 74) scale(.77)" color="#656579" id="tool3-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v7l3 1-5 6-5-6 3-1z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="463.4" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool3-label">T3</text>
+<rect x="479.6" y="65" width="26" height="49" fill="#7d71f5" rx="4" stroke="#5343aa" id="tool4-bg"/>
+<g transform="translate(492.6 74) scale(.77)" color="white" id="tool4-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v6h1v8h-6V6h1z M-3 9l6-3 M-3 13l6-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="492.6" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="white" font-weight="650" text-anchor="middle" id="tool4-label">T4</text>
+<rect x="508.8" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool5-bg"/>
+<g transform="translate(521.8 74) scale(.77)" color="#656579" id="tool5-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v7h3v5H-5V7h3z M0 7v5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="521.8" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool5-label">T5</text>
+<rect x="538.0" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool6-bg"/>
+<g transform="translate(551.0 74) scale(.77)" color="#656579" id="tool6-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-1.5 0h3v7l1 2v4l-2.5 2-2.5-2V9l1-2z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="551.0" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool6-label">T6</text>
+<rect x="567.2" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool7-bg"/>
+<g transform="translate(580.2 74) scale(.77)" color="#656579" id="tool7-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v10l-2 3-2-3z M-2 6l4-3 M-2 10l4-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="580.2" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool7-label">T7</text>
+<rect x="596.4" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool8-bg"/>
+<g transform="translate(609.4 74) scale(.77)" color="#656579" id="tool8-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v13h-4z M-2 7l4-3 M-2 11l4-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="609.4" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool8-label">T8</text>
+<rect x="625.6" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool9-bg"/>
+<g transform="translate(638.6 74) scale(.77)" color="#656579" id="tool9-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v7l3 1-5 6-5-6 3-1z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="638.6" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool9-label">T9</text>
+<rect x="654.8" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool10-bg"/>
+<g transform="translate(667.8 74) scale(.77)" color="#656579" id="tool10-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v6h1v8h-6V6h1z M-3 9l6-3 M-3 13l6-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="667.8" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool10-label">T10</text>
+<rect x="684.0" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool11-bg"/>
+<g transform="translate(697.0 74) scale(.77)" color="#656579" id="tool11-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-2 0h4v7h3v5H-5V7h3z M0 7v5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="697.0" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool11-label">T11</text>
+<rect x="713.2" y="65" width="26" height="49" fill="#f7f7fb" rx="4" stroke="#dddce8" id="tool12-bg"/>
+<g transform="translate(726.2 74) scale(.77)" color="#656579" id="tool12-bit">
+<path d="M-5 -3h10v3l-2 2h-6l-2-2z" fill="currentColor" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<g transform="translate(0 1)">
+<path d="M-1.5 0h3v7l1 2v4l-2.5 2-2.5-2V9l1-2z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</g>
+<text x="726.2" y="107" font-family="Menlo, Consolas, monospace" font-size="10" fill="#262535" font-weight="650" text-anchor="middle" id="tool12-label">T12</text>
+<rect x="391" y="128" width="350" height="651" fill="#242333" rx="6"/>
+<path transform="translate(402 143) scale(0.625)" d="M6 3h8l4 4v14H6z M14 3v5h4 M9 13h6 M9 16h6" stroke="#b7adff" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="424" y="155" font-family="Menlo, Consolas, monospace" font-size="10.8" fill="#f2f0ff" font-weight="600" text-anchor="start" id="job-name">FIXTURE_PLATES.TAP</text>
+<text x="728" y="154" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c3bedb" font-weight="600" text-anchor="end" id="active-tool">48 × 96 IN · T4</text>
+<rect x="633" y="135" width="98" height="27" fill="#eae7ff" rx="4" id="measure-bg" opacity="0"/>
+<text x="682" y="153" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="10.5" fill="#5343aa" font-weight="720" text-anchor="middle" id="measure-text" opacity="0">MEASURE</text>
+<line x1="392" y1="169" x2="740" y2="169" stroke="#433f54"/>
+<rect x="435" y="189.36" width="280.32" height="560.64" fill="#302d41" rx="0" stroke="#a69ec8"/>
+<line x1="435" y1="714.96" x2="715.3199999999999" y2="714.96" stroke="#3a374b"/>
+<line x1="435" y1="679.92" x2="715.3199999999999" y2="679.92" stroke="#494458"/>
+<line x1="435" y1="644.88" x2="715.3199999999999" y2="644.88" stroke="#3a374b"/>
+<line x1="435" y1="609.84" x2="715.3199999999999" y2="609.84" stroke="#494458"/>
+<line x1="435" y1="574.8" x2="715.3199999999999" y2="574.8" stroke="#3a374b"/>
+<line x1="435" y1="539.76" x2="715.3199999999999" y2="539.76" stroke="#494458"/>
+<line x1="435" y1="504.72" x2="715.3199999999999" y2="504.72" stroke="#3a374b"/>
+<line x1="435" y1="469.68" x2="715.3199999999999" y2="469.68" stroke="#494458"/>
+<line x1="435" y1="434.64" x2="715.3199999999999" y2="434.64" stroke="#3a374b"/>
+<line x1="435" y1="399.6" x2="715.3199999999999" y2="399.6" stroke="#494458"/>
+<line x1="435" y1="364.56" x2="715.3199999999999" y2="364.56" stroke="#3a374b"/>
+<line x1="435" y1="329.52" x2="715.3199999999999" y2="329.52" stroke="#494458"/>
+<line x1="435" y1="294.48" x2="715.3199999999999" y2="294.48" stroke="#3a374b"/>
+<line x1="435" y1="259.44" x2="715.3199999999999" y2="259.44" stroke="#494458"/>
+<line x1="435" y1="224.39999999999998" x2="715.3199999999999" y2="224.39999999999998" stroke="#3a374b"/>
+<line x1="470.04" y1="189.36" x2="470.04" y2="750" stroke="#3a374b"/>
+<line x1="505.08" y1="189.36" x2="505.08" y2="750" stroke="#494458"/>
+<line x1="540.12" y1="189.36" x2="540.12" y2="750" stroke="#3a374b"/>
+<line x1="575.16" y1="189.36" x2="575.16" y2="750" stroke="#494458"/>
+<line x1="610.2" y1="189.36" x2="610.2" y2="750" stroke="#3a374b"/>
+<line x1="645.24" y1="189.36" x2="645.24" y2="750" stroke="#494458"/>
+<line x1="680.28" y1="189.36" x2="680.28" y2="750" stroke="#3a374b"/>
+<text x="425" y="753.0" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">0</text>
+<line x1="430" y1="750.0" x2="435" y2="750.0" stroke="#a69ec8"/>
+<text x="425" y="682.92" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">12</text>
+<line x1="430" y1="679.92" x2="435" y2="679.92" stroke="#a69ec8"/>
+<text x="425" y="612.84" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">24</text>
+<line x1="430" y1="609.84" x2="435" y2="609.84" stroke="#a69ec8"/>
+<text x="425" y="542.76" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">36</text>
+<line x1="430" y1="539.76" x2="435" y2="539.76" stroke="#a69ec8"/>
+<text x="425" y="472.68" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">48</text>
+<line x1="430" y1="469.68" x2="435" y2="469.68" stroke="#a69ec8"/>
+<text x="425" y="402.6" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">60</text>
+<line x1="430" y1="399.6" x2="435" y2="399.6" stroke="#a69ec8"/>
+<text x="425" y="332.52" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">72</text>
+<line x1="430" y1="329.52" x2="435" y2="329.52" stroke="#a69ec8"/>
+<text x="425" y="262.44" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">84</text>
+<line x1="430" y1="259.44" x2="435" y2="259.44" stroke="#a69ec8"/>
+<text x="425" y="192.36" font-family="Menlo, Consolas, monospace" font-size="9.8" fill="#c4bfd4" font-weight="450" text-anchor="end">96</text>
+<line x1="430" y1="189.36" x2="435" y2="189.36" stroke="#a69ec8"/>
+<text x="435.0" y="767" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="450" text-anchor="middle">0</text>
+<line x1="435.0" y1="750" x2="435.0" y2="754" stroke="#a69ec8"/>
+<text x="505.08" y="767" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="450" text-anchor="middle">12</text>
+<line x1="505.08" y1="750" x2="505.08" y2="754" stroke="#a69ec8"/>
+<text x="575.16" y="767" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="450" text-anchor="middle">24</text>
+<line x1="575.16" y1="750" x2="575.16" y2="754" stroke="#a69ec8"/>
+<text x="645.24" y="767" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="450" text-anchor="middle">36</text>
+<line x1="645.24" y1="750" x2="645.24" y2="754" stroke="#a69ec8"/>
+<text x="715.3199999999999" y="767" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="450" text-anchor="middle">48</text>
+<line x1="715.3199999999999" y1="750" x2="715.3199999999999" y2="754" stroke="#a69ec8"/>
+<text x="403" y="185" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="640" text-anchor="start">Y</text>
+<text x="727" y="767" font-family="Menlo, Consolas, monospace" font-size="10" fill="#c4bfd4" font-weight="640" text-anchor="start">X</text>
+<defs><clipPath id="bed-clip"><rect x="0" y="0" width="48" height="96"/></clipPath></defs>
+<g transform="translate(435 750) scale(5.84 -5.84)" id="job-geometry" clip-path="url(#bed-clip)">
+<path d="M41 10v26l-4 4v7a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3v-7l-5-4V10l4-4h26z" fill="#4e446c" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route0" fill-opacity=".70"/>
+<path d="M13.9 24a10.1 10.1 0 1 0 20.2 0a10.1 10.1 0 1 0 -20.2 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route1" fill-opacity="1"/>
+<path d="M15.45 24a8.55 8.55 0 1 0 17.1 0a8.55 8.55 0 1 0 -17.1 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route2" fill-opacity="1"/>
+<path d="M34.169000000000004 30.35a0.83 0.83 0 1 0 1.66 0a0.83 0.83 0 1 0 -1.66 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route3" fill-opacity="1"/>
+<path d="M23.17 36.7a0.83 0.83 0 1 0 1.66 0a0.83 0.83 0 1 0 -1.66 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route4" fill-opacity="1"/>
+<path d="M12.171 30.35a0.83 0.83 0 1 0 1.66 0a0.83 0.83 0 1 0 -1.66 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route5" fill-opacity="1"/>
+<path d="M12.171 17.65a0.83 0.83 0 1 0 1.66 0a0.83 0.83 0 1 0 -1.66 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route6" fill-opacity="1"/>
+<path d="M23.17 11.3a0.83 0.83 0 1 0 1.66 0a0.83 0.83 0 1 0 -1.66 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route7" fill-opacity="1"/>
+<path d="M34.169000000000004 17.65a0.83 0.83 0 1 0 1.66 0a0.83 0.83 0 1 0 -1.66 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route8" fill-opacity="1"/>
+<path d="M35.870000000000005 10.1a0.73 0.73 0 1 0 1.46 0a0.73 0.73 0 1 0 -1.46 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route9" fill-opacity="1"/>
+<path d="M10.469999999999999 10.1a0.73 0.73 0 1 0 1.46 0a0.73 0.73 0 1 0 -1.46 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route10" fill-opacity="1"/>
+<path d="M36.27 34a0.73 0.73 0 1 0 1.46 0a0.73 0.73 0 1 0 -1.46 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route11" fill-opacity="1"/>
+<path d="M10.27 34a0.73 0.73 0 1 0 1.46 0a0.73 0.73 0 1 0 -1.46 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route12" fill-opacity="1"/>
+<path d="M19.95 42.4h10.1a1.95 1.95 0 0 1 1.95 1.95v0.0a1.95 1.95 0 0 1 -1.95 1.95h-10.1a1.95 1.95 0 0 1 -1.95 -1.95v0.0a1.95 1.95 0 0 1 1.95 -1.95z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route13" fill-opacity="1"/>
+<path d="M42 59v27l-4 4h-7l-4-5V59l3-3h9z" fill="#4e446c" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route14" fill-opacity=".70"/>
+<path d="M34.45 64h0.0a2.65 2.65 0 0 1 2.65 2.65v10.7a2.65 2.65 0 0 1 -2.65 2.65h0.0a2.65 2.65 0 0 1 -2.65 -2.65v-10.7a2.65 2.65 0 0 1 2.65 -2.65z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route15" fill-opacity="1"/>
+<path d="M37.440000000000005 59.6a0.76 0.76 0 1 0 1.52 0a0.76 0.76 0 1 0 -1.52 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route16" fill-opacity="1"/>
+<path d="M29.939999999999998 59.6a0.76 0.76 0 1 0 1.52 0a0.76 0.76 0 1 0 -1.52 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route17" fill-opacity="1"/>
+<path d="M33.74 85.8a0.76 0.76 0 1 0 1.52 0a0.76 0.76 0 1 0 -1.52 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route18" fill-opacity="1"/>
+<path d="M24 59v27l-4 4h-7l-4-5V59l3-3h9z" fill="#4e446c" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route19" fill-opacity=".70"/>
+<path d="M16.45 64h0.0a2.65 2.65 0 0 1 2.65 2.65v10.7a2.65 2.65 0 0 1 -2.65 2.65h0.0a2.65 2.65 0 0 1 -2.65 -2.65v-10.7a2.65 2.65 0 0 1 2.65 -2.65z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route20" fill-opacity="1"/>
+<path d="M19.439999999999998 59.6a0.76 0.76 0 1 0 1.52 0a0.76 0.76 0 1 0 -1.52 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route21" fill-opacity="1"/>
+<path d="M11.94 59.6a0.76 0.76 0 1 0 1.52 0a0.76 0.76 0 1 0 -1.52 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route22" fill-opacity="1"/>
+<path d="M15.74 85.8a0.76 0.76 0 1 0 1.52 0a0.76 0.76 0 1 0 -1.52 0z" fill="none" stroke="#b6a5ff" stroke-width="0.31" stroke-linecap="round" stroke-linejoin="round" id="route23" fill-opacity="1"/>
+<path d="M0 0 11 6 M16 50 15 56 M24 59 27 59" fill="none" stroke="#9793ad" stroke-width="0.24" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray=".65 .8"/>
+</g>
+<g transform="translate(528.44 458.0)" id="head">
+<circle cx="0" cy="0" r="7" fill="#332f42" stroke="#ffd08e" stroke-width="2"/>
+<circle cx="0" cy="0" r="2" fill="#ffd08e"/>
+<line x1="-12" y1="0" x2="-5" y2="0" stroke="#ffd08e"/>
+<line x1="5" y1="0" x2="12" y2="0" stroke="#ffd08e"/>
+<line x1="0" y1="-12" x2="0" y2="-5" stroke="#ffd08e"/>
+<line x1="0" y1="5" x2="0" y2="12" stroke="#ffd08e"/>
+<rect x="10" y="-22" width="29" height="15" fill="#ffd08e" rx="3"/>
+<text x="24.5" y="-11" font-family="Menlo, Consolas, monospace" font-size="9.5" fill="#3e2a11" font-weight="700" text-anchor="middle" id="head-tool">T4</text>
+</g>
+<rect x="392" y="796" width="170" height="42" fill="#eae7ff" rx="5" stroke="#aa9ff4" id="vacuum-bg"/>
+<path transform="translate(403 808) scale(0.75)" d="M10 4a8 8 0 1 0 8 12 M14 4c4-1 6 1 6 3 0 3-3 5-7 6 M8 7c-2 0-3 2-3 4 M15 14c.5 2-1 4-3 4 M10 10a2.5 2.5 0 1 0 4 3" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="429" y="821" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#262535" font-weight="670" text-anchor="start" id="vacuum-label">VACUUM</text>
+<circle cx="523" cy="817" r="4" fill="#4fdb65" id="vacuum-dot"/>
+<text x="551" y="821" font-family="Menlo, Consolas, monospace" font-size="9.5" fill="#5343aa" font-weight="700" text-anchor="end" id="vacuum-state">ON</text>
+<rect x="570" y="796" width="170" height="42" fill="#eae7ff" rx="5" stroke="#aa9ff4" id="table-bg"/>
+<path transform="translate(581 808) scale(0.75)" d="M3 7h18v9H3z M6 16v4 M18 16v4 M6 10h2 M11 10h2 M16 10h2 M6 13h2 M11 13h2 M16 13h2" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="607" y="821" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#262535" font-weight="670" text-anchor="start" id="table-label">VAC TABLE</text>
+<circle cx="701" cy="817" r="4" fill="#4fdb65" id="table-dot"/>
+<text x="729" y="821" font-family="Menlo, Consolas, monospace" font-size="9.5" fill="#5343aa" font-weight="700" text-anchor="end" id="table-state">ON</text>
+<rect x="392" y="846" width="170" height="42" fill="#f7f7fb" rx="5" stroke="#dddce8" id="boot-bg"/>
+<path transform="translate(403 858) scale(0.75)" d="M8 3h8v6l4 3v4H4v-4l4-3z M6 16v4 M10 16v4 M14 16v4 M18 16v4" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="429" y="871" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#262535" font-weight="670" text-anchor="start" id="boot-label">DUST BOOT</text>
+<circle cx="523" cy="867" r="4" fill="#e04343" id="boot-dot"/>
+<text x="551" y="871" font-family="Menlo, Consolas, monospace" font-size="9.5" fill="#656579" font-weight="700" text-anchor="end" id="boot-state">OFF</text>
+<rect x="570" y="846" width="170" height="42" fill="#f7f7fb" rx="5" stroke="#dddce8" id="gate-bg"/>
+<path transform="translate(581 858) scale(0.75)" d="M4 4v16 M20 4v16 M4 7h16 M4 17h16 M8 14l8-4 M10 6V3h4v3" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="607" y="871" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#262535" font-weight="670" text-anchor="start" id="gate-label">DUST GATE</text>
+<circle cx="701" cy="867" r="4" fill="#e04343" id="gate-dot"/>
+<text x="729" y="871" font-family="Menlo, Consolas, monospace" font-size="9.5" fill="#656579" font-weight="700" text-anchor="end" id="gate-state">OFF</text>
+<rect x="392" y="896" width="170" height="42" fill="#f7f7fb" rx="5" stroke="#dddce8" id="sweep-bg"/>
+<path transform="translate(403 908) scale(0.75)" d="M14 3l-4 8 M6 10l8 4-2 7-10-5z M5 14l-1 3 M8 15l-1 3 M11 16l-1 3" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="429" y="921" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#262535" font-weight="670" text-anchor="start" id="sweep-label">SWEEP</text>
+<rect x="570" y="896" width="170" height="42" fill="#f7f7fb" rx="5" stroke="#dddce8" id="flycut-bg"/>
+<path transform="translate(581 908) scale(0.75)" d="M10 2h5v8h-5z M5 10h14v4H5z M5 14v3h3v-3 M16 14v3h3v-3 M3 20h18" stroke="#5343aa" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+<text x="607" y="921" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-size="11.5" fill="#262535" font-weight="670" text-anchor="start" id="flycut-label">FLY CUT</text>
+<rect x="392" y="946" width="348" height="50" fill="#e04343" rx="6" id="stop-bg"/>
+<g transform="translate(566 971)" id="stop-icon">
+<path d="M-5-12h10l7 7V5l-7 7H-5l-7-7V-5z" fill="white"/>
+<path d="M-4-4l8 8m0-8-8 8" stroke="#e04343" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+</svg><input id="job-file" type="file" accept=".tap,.nc,.cnc,.gcode,.txt,.mac,.h" hidden><div id="controls"></div><div id="menus"></div></main><div id="announce" class="sr" role="status" aria-live="polite"></div><dialog id="dialog" aria-labelledby="dlg-title"><div class="modalhead"><h2 id="dlg-title"></h2><button id="dlg-close" aria-label="CLOSE">×</button></div><div id="dlg-body"></div><button id="dlg-action" hidden></button></dialog><script>const spec=[{"key": "menu0", "x": 12, "y": 0, "w": 53, "h": 35, "label": "FILE", "kind": "menu", "index": 0}, {"key": "menu1", "x": 65, "y": 0, "w": 133, "h": 35, "label": "CONFIGURATION", "kind": "menu", "index": 1}, {"key": "menu2", "x": 198, "y": 0, "w": 82, "h": 35, "label": "SETTINGS", "kind": "menu", "index": 2}, {"key": "menu3", "x": 280, "y": 0, "w": 57, "h": 35, "label": "VIEW", "kind": "menu", "index": 3}, {"key": "menu4", "x": 337, "y": 0, "w": 79, "h": 35, "label": "OPTIONS", "kind": "menu", "index": 4}, {"key": "menu5", "x": 416, "y": 0, "w": 64, "h": 35, "label": "UNITS", "kind": "menu", "index": 5}, {"key": "menu6", "x": 480, "y": 0, "w": 83, "h": 35, "label": "TRANSIT", "kind": "menu", "index": 6}, {"key": "menu7", "x": 563, "y": 0, "w": 59, "h": 35, "label": "JOG", "kind": "menu", "index": 7}, {"key": "menu8", "x": 622, "y": 0, "w": 58, "h": 35, "label": "HELP", "kind": "menu", "index": 8}, {"key": "mdi", "x": 49, "y": 66, "w": 201, "h": 36, "label": "ENTER MDI COMMAND", "kind": "text"}, {"key": "open", "x": 259, "y": 65, "w": 42, "h": 38, "label": "OPEN FILE", "kind": "button"}, {"key": "start", "x": 309, "y": 65, "w": 42, "h": 38, "label": "START", "kind": "button"}, {"key": "warmup", "x": 29, "y": 255, "w": 102, "h": 65, "label": "WARMUP", "kind": "button"}, {"key": "home", "x": 139, "y": 255, "w": 102, "h": 65, "label": "HOME", "kind": "button"}, {"key": "park", "x": 249, "y": 255, "w": 102, "h": 65, "label": "PARK", "kind": "button"}, {"key": "posX", "x": 73, "y": 411, "w": 110, "h": 32, "label": "posX", "kind": "number", "value": "16.000"}, {"key": "feedX", "x": 191, "y": 411, "w": 103, "h": 32, "label": "feedX", "kind": "number", "value": "500"}, {"key": "posY", "x": 73, "y": 451, "w": 110, "h": 32, "label": "posY", "kind": "number", "value": "50.000"}, {"key": "feedY", "x": 191, "y": 451, "w": 103, "h": 32, "label": "feedY", "kind": "number", "value": "500"}, {"key": "posZ", "x": 73, "y": 491, "w": 110, "h": 32, "label": "posZ", "kind": "number", "value": "0.250"}, {"key": "feedZ", "x": 191, "y": 491, "w": 103, "h": 32, "label": "feedZ", "kind": "number", "value": "100"}, {"key": "override", "x": 306, "y": 417, "w": 42, "h": 86, "label": "FEED RATE OVERRIDE", "kind": "range"}, {"key": "yp", "x": 88.5, "y": 624.5, "w": 78.0, "h": 35.5, "label": "Y+", "kind": "button", "clip": "polygon(0.0000% 11.2676%,0.2051% 7.2113%,0.8205% 4.0563%,1.8462% 1.8028%,3.2821% 0.4507%,5.1282% 0.0000%,94.8718% 0.0000%,96.7179% 0.4507%,98.1538% 1.8028%,99.1795% 4.0563%,99.7949% 7.2113%,100.0000% 11.2676%,100.0000% 23.9437%,99.8550% 28.3187%,99.4198% 32.4297%,98.6946% 36.2767%,97.6792% 39.8597%,96.3738% 43.1787%,74.1390% 92.0326%,72.6285% 94.9009%,70.9977% 97.1317%,69.2469% 98.7252%,67.3758% 99.6813%,65.3846% 100.0000%,34.6154% 100.0000%,32.6242% 99.6813%,30.7531% 98.7252%,29.0023% 97.1317%,27.3715% 94.9009%,25.8610% 92.0326%,3.6262% 43.1787%,2.3208% 39.8597%,1.3054% 36.2767%,0.5802% 32.4297%,0.1450% 28.3187%,0.0000% 23.9437%)"}, {"key": "xm", "x": 42.5, "y": 645, "w": 63.35283912309967, "h": 58, "label": "X\u2212", "kind": "button", "clip": "polygon(0.0000% 6.8966%,0.2526% 4.4138%,1.0102% 2.4828%,2.2730% 1.1034%,4.0409% 0.2759%,6.3138% 0.0000%,57.3815% 0.0000%,59.8331% 0.1951%,62.1367% 0.7803%,64.2924% 1.7556%,66.3002% 3.1210%,68.1600% 4.8766%,95.5354% 34.7786%,97.1427% 36.8100%,98.3928% 39.0030%,99.2857% 41.3577%,99.8214% 43.8739%,100.0000% 46.5517%,100.0000% 53.4483%,99.8214% 56.1261%,99.2857% 58.6423%,98.3928% 60.9970%,97.1427% 63.1900%,95.5354% 65.2214%,68.1600% 95.1234%,66.3002% 96.8790%,64.2924% 98.2444%,62.1367% 99.2197%,59.8331% 99.8049%,57.3815% 100.0000%,6.3138% 100.0000%,4.0409% 99.7241%,2.2730% 98.8966%,1.0102% 97.5172%,0.2526% 95.5862%,0.0000% 93.1034%)"}, {"key": "xp", "x": 149.14716087690033, "y": 645, "w": 63.35283912309967, "h": 58, "label": "X+", "kind": "button", "clip": "polygon(100.0000% 6.8966%,99.7474% 4.4138%,98.9898% 2.4828%,97.7270% 1.1034%,95.9591% 0.2759%,93.6862% 0.0000%,42.6185% 0.0000%,40.1669% 0.1951%,37.8633% 0.7803%,35.7076% 1.7556%,33.6998% 3.1210%,31.8400% 4.8766%,4.4646% 34.7786%,2.8573% 36.8100%,1.6072% 39.0030%,0.7143% 41.3577%,0.1786% 43.8739%,0.0000% 46.5517%,0.0000% 53.4483%,0.1786% 56.1261%,0.7143% 58.6423%,1.6072% 60.9970%,2.8573% 63.1900%,4.4646% 65.2214%,31.8400% 95.1234%,33.6998% 96.8790%,35.7076% 98.2444%,37.8633% 99.2197%,40.1669% 99.8049%,42.6185% 100.0000%,93.6862% 100.0000%,95.9591% 99.7241%,97.7270% 98.8966%,98.9898% 97.5172%,99.7474% 95.5862%,100.0000% 93.1034%)"}, {"key": "ym", "x": 88.5, "y": 688, "w": 78.0, "h": 35.5, "label": "Y\u2212", "kind": "button", "clip": "polygon(0.0000% 88.7324%,0.2051% 92.7887%,0.8205% 95.9437%,1.8462% 98.1972%,3.2821% 99.5493%,5.1282% 100.0000%,94.8718% 100.0000%,96.7179% 99.5493%,98.1538% 98.1972%,99.1795% 95.9437%,99.7949% 92.7887%,100.0000% 88.7324%,100.0000% 76.0563%,99.8550% 71.6813%,99.4198% 67.5703%,98.6946% 63.7233%,97.6792% 60.1403%,96.3738% 56.8213%,74.1390% 7.9674%,72.6285% 5.0991%,70.9977% 2.8683%,69.2469% 1.2748%,67.3758% 0.3187%,65.3846% 0.0000%,34.6154% 0.0000%,32.6242% 0.3187%,30.7531% 1.2748%,29.0023% 2.8683%,27.3715% 5.0991%,25.8610% 7.9674%,3.6262% 56.8213%,2.3208% 60.1403%,1.3054% 63.7233%,0.5802% 67.5703%,0.1450% 71.6813%,0.0000% 76.0563%)"}, {"key": "zp", "x": 252.5, "y": 624.5, "w": 85, "h": 44.5, "label": "Z+", "kind": "button"}, {"key": "zm", "x": 252.5, "y": 679, "w": 85, "h": 44.5, "label": "Z\u2212", "kind": "button"}, {"key": "inc0", "x": 29.0, "y": 751, "w": 74.5, "h": 33, "label": "1\u2033", "kind": "button"}, {"key": "inc1", "x": 111.5, "y": 751, "w": 74.5, "h": 33, "label": "0.1\u2033", "kind": "button"}, {"key": "inc2", "x": 194.0, "y": 751, "w": 74.5, "h": 33, "label": "0.01\u2033", "kind": "button"}, {"key": "inc3", "x": 276.5, "y": 751, "w": 74.5, "h": 33, "label": "0.001\u2033", "kind": "button"}, {"key": "fast", "x": 29, "y": 792, "w": 102, "h": 33, "label": "FAST", "kind": "button"}, {"key": "medium", "x": 139, "y": 792, "w": 102, "h": 33, "label": "MEDIUM", "kind": "button"}, {"key": "slow", "x": 249, "y": 792, "w": 102, "h": 33, "label": "SLOW", "kind": "button"}, {"key": "spindle", "x": 29, "y": 865, "w": 322, "h": 46, "label": "SPINDLE", "kind": "button"}, {"key": "rpm", "x": 32, "y": 946, "w": 316, "h": 25, "label": "SPINDLE SPEED", "kind": "range"}, {"key": "tool1", "x": 392.0, "y": 65, "w": 26, "h": 49, "label": "T1", "kind": "tool", "n": 1}, {"key": "tool2", "x": 421.2, "y": 65, "w": 26, "h": 49, "label": "T2", "kind": "tool", "n": 2}, {"key": "tool3", "x": 450.4, "y": 65, "w": 26, "h": 49, "label": "T3", "kind": "tool", "n": 3}, {"key": "tool4", "x": 479.6, "y": 65, "w": 26, "h": 49, "label": "T4", "kind": "tool", "n": 4}, {"key": "tool5", "x": 508.8, "y": 65, "w": 26, "h": 49, "label": "T5", "kind": "tool", "n": 5}, {"key": "tool6", "x": 538.0, "y": 65, "w": 26, "h": 49, "label": "T6", "kind": "tool", "n": 6}, {"key": "tool7", "x": 567.2, "y": 65, "w": 26, "h": 49, "label": "T7", "kind": "tool", "n": 7}, {"key": "tool8", "x": 596.4, "y": 65, "w": 26, "h": 49, "label": "T8", "kind": "tool", "n": 8}, {"key": "tool9", "x": 625.6, "y": 65, "w": 26, "h": 49, "label": "T9", "kind": "tool", "n": 9}, {"key": "tool10", "x": 654.8, "y": 65, "w": 26, "h": 49, "label": "T10", "kind": "tool", "n": 10}, {"key": "tool11", "x": 684.0, "y": 65, "w": 26, "h": 49, "label": "T11", "kind": "tool", "n": 11}, {"key": "tool12", "x": 713.2, "y": 65, "w": 26, "h": 49, "label": "T12", "kind": "tool", "n": 12}, {"key": "measure", "x": 633, "y": 135, "w": 98, "h": 27, "label": "MEASURE SELECTED TOOLS", "kind": "button"}, {"key": "vacuum", "x": 392, "y": 796, "w": 170, "h": 42, "label": "VACUUM", "kind": "button"}, {"key": "table", "x": 570, "y": 796, "w": 170, "h": 42, "label": "VAC TABLE", "kind": "button"}, {"key": "boot", "x": 392, "y": 846, "w": 170, "h": 42, "label": "DUST BOOT", "kind": "button"}, {"key": "gate", "x": 570, "y": 846, "w": 170, "h": 42, "label": "DUST GATE", "kind": "button"}, {"key": "sweep", "x": 392, "y": 896, "w": 170, "h": 42, "label": "SWEEP", "kind": "button"}, {"key": "flycut", "x": 570, "y": 896, "w": 170, "h": 42, "label": "FLY CUT", "kind": "button"}, {"key": "estop", "x": 392, "y": 946, "w": 348, "h": 50, "label": "E-STOP", "kind": "button"}];const menus=[
+  {
+    "name": "&File",
+    "items": [
+      {
+        "name": "&Open\tCtrl+O",
+        "id": 32775
+      },
+      {
+        "name": "&Edit\tCtrl+E",
+        "id": 32778
+      },
+      {
+        "name": "&Simulate\tCtrl+S",
+        "id": 32780
+      },
+      {
+        "name": "&View\tCtrl+V",
+        "id": 32779
+      },
+      {
+        "name": "&Restart\tCtrl+R",
+        "id": 32772
+      },
+      {
+        "name": "His&tory\tTAB",
+        "id": 32776
+      },
+      {
+        "name": "&List",
+        "id": 32777
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Create &Home File\tCtrl+H",
+        "id": 32822
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Import",
+        "items": [
+          {
+            "name": "DXF",
+            "id": 32843
+          },
+          {
+            "name": "HPGL",
+            "id": 32844
+          }
+        ]
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Digitize",
+        "items": [
+          {
+            "name": "Manual",
+            "id": 32846
+          },
+          {
+            "name": "Automatic",
+            "id": 32847
+          },
+          {
+            "name": "Frame",
+            "id": 32848
+          },
+          {
+            "name": "Outline",
+            "id": 32857
+          },
+          {
+            "name": "Laser",
+            "items": [
+              {
+                "name": "Run Scan",
+                "id": 32853
+              },
+              {
+                "name": "Reprocess Data",
+                "id": 32855
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "E&xit",
+        "id": 57665
+      }
+    ]
+  },
+  {
+    "name": "Configuration",
+    "items": [
+      {
+        "name": "Machine Settings",
+        "id": 10009
+      },
+      {
+        "name": "D/A Calibration",
+        "id": 10010
+      },
+      {
+        "name": "THC Configuration",
+        "id": 32865
+      }
+    ]
+  },
+  {
+    "name": "Settings",
+    "items": [
+      {
+        "name": "&Positions",
+        "id": 32816
+      },
+      {
+        "name": "&Home Positions",
+        "id": 32817
+      },
+      {
+        "name": "&Tool Positions",
+        "id": 32818
+      },
+      {
+        "name": "&Tool Library",
+        "id": 32851
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Local Coordinates",
+        "id": 32845
+      }
+    ]
+  },
+  {
+    "name": "&View",
+    "items": [
+      {
+        "name": "&Resolution",
+        "id": 32813
+      },
+      {
+        "name": "&Acceleration",
+        "id": 32814
+      },
+      {
+        "name": "&Limits",
+        "id": 32815
+      },
+      {
+        "name": "&Inputs",
+        "id": 32820
+      },
+      {
+        "name": "&Outputs",
+        "id": 32854
+      },
+      {
+        "name": "&Position Information",
+        "id": 32863
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Toolbars",
+        "items": [
+          {
+            "name": "Size",
+            "items": [
+              {
+                "name": "Small",
+                "id": 105
+              },
+              {
+                "name": "Large",
+                "id": 106
+              }
+            ]
+          },
+          {
+            "name": "Main",
+            "id": 108
+          }
+        ]
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Log Time Totals",
+        "id": 32866
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Refresh &View\tF5",
+        "id": 32812
+      },
+      {
+        "name": "&Clear Screen\tCtrl+C",
+        "id": 32821
+      }
+    ]
+  },
+  {
+    "name": "&Options",
+    "items": [
+      {
+        "name": "Soft &Limits\tCtrl+L",
+        "id": 32809
+      },
+      {
+        "name": "&Keyboard\tCtrl+K",
+        "id": 32805
+      },
+      {
+        "name": "Draw &GCode\tCtrl+G",
+        "id": 32860
+      },
+      {
+        "name": "&Buttons",
+        "id": 32808
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "Auto &Repeat",
+        "id": 32806
+      },
+      {
+        "name": "Auto R&un",
+        "id": 32807
+      },
+      {
+        "name": "Auto &Preview",
+        "id": 32810
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "&Single Step\tCtrl+P",
+        "id": 32849
+      }
+    ]
+  },
+  {
+    "name": "&Units",
+    "items": [
+      {
+        "name": "&Inches",
+        "id": 32823
+      },
+      {
+        "name": "&Centimeters",
+        "id": 32824
+      },
+      {
+        "name": "&Millimeters",
+        "id": 32825
+      }
+    ]
+  },
+  {
+    "name": "&Transit",
+    "items": [
+      {
+        "name": "&Slow\tF2",
+        "id": 32781
+      },
+      {
+        "name": "&Medium\tF3",
+        "id": 32782
+      },
+      {
+        "name": "&Fast\tF4",
+        "id": 32783
+      }
+    ]
+  },
+  {
+    "name": "&Jog",
+    "items": [
+      {
+        "name": "0.001\tF6",
+        "id": 32784
+      },
+      {
+        "name": "0.01\tF7",
+        "id": 32785
+      },
+      {
+        "name": "&0.1\tF8",
+        "id": 32786
+      },
+      {
+        "name": "&1\tF9",
+        "id": 32787
+      },
+      {
+        "name": "&Custom\tF10",
+        "id": 32788
+      }
+    ]
+  },
+  {
+    "name": "&Help",
+    "items": [
+      {
+        "name": "&Help Topics\tF1",
+        "id": 10003
+      },
+      {
+        "name": "",
+        "id": 0
+      },
+      {
+        "name": "&Add Feature",
+        "id": 10006
+      },
+      {
+        "name": "&About",
+        "id": 57664
+      }
+    ]
+  }
+];
+'use strict';
+const by=id=>document.getElementById(id);
+const set=(id,v)=>{by(id).textContent=v};
+const attr=(id,k,v)=>by(id).setAttribute(k,v);
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+const $control=k=>by('control-'+k);
+const axes=['X','Y','Z'];
+const preset={fast:[1000,1000,300],medium:[200,200,50],slow:[20,20,10]};
+const steps=[1,.1,.01,.001];
+const palettes={on:['#eae7ff','#aa9ff4'],off:['#f7f7fb','#dddce8']};
+const units={INCHES:['IN',1],CENTIMETERS:['CM',2.54],MILLIMETERS:['MM',25.4]};
+const state={pos:[16,50,.25],feed:[500,500,100],override:100,tool:4,selected:new Set(),rpm:12000,mode:'ready',unit:'INCHES',inc:.1,transit:null,spindle:false,vacuum:true,table:true,boot:false,gate:false};
+const historyRows=[['09:41:02','CONTROLLER READY'],['09:41:04','FIXTURE_PLATES.TAP LOADED'],['09:41:06','T4 PICKED UP']];
+let frame=0,warmTimer=0,jogTimer=0,elapsed=0,lastTime=0,rootMenu=-1;
+let sections=[],total=0;
+const minRPM=200,maxRPM=18000;
+const macroPreviews={"sweep": {"name": "SWEEP.MAC", "groups": [{"d": "M1.0 6.0 L46.0 6.0 L46.0 14.0 L1.0 14.0 L1.0 22.0 L46.0 22.0 L46.0 30.0 L1.0 30.0 L1.0 38.0 L46.0 38.0 L46.0 46.0 L1.0 46.0 L1.0 54.0 L46.0 54.0 L46.0 62.0 L1.0 62.0 L1.0 70.0 L46.0 70.0 L46.0 78.0 L1.0 78.0 L1.0 86.0 L46.0 86.0 L46.0 94.0 L1.0 94.0", "rapid": false}]}, "flycut": {"name": "FLYCUT.TAP", "groups": [{"d": "M0.0 0.0 L0.0 96.0 L48.0 96.0 L48.0 0.0 L2.0 0.0 L2.0 96.0 L4.0 96.0 L4.0 0.0 L6.0 0.0 L6.0 96.0 L8.0 96.0 L8.0 0.0 L10.0 0.0 L10.0 96.0 L12.0 96.0 L12.0 0.0 L14.0 0.0 L14.0 96.0 L16.0 96.0 L16.0 0.0 L18.0 0.0 L18.0 96.0 L20.0 96.0 L20.0 0.0 L22.0 0.0 L22.0 96.0 L24.0 96.0 L24.0 0.0 L26.0 0.0 L26.0 96.0 L28.0 96.0 L28.0 0.0 L30.0 0.0 L30.0 96.0 L32.0 96.0 L32.0 0.0 L34.0 0.0 L34.0 96.0 L36.0 96.0 L36.0 0.0 L38.0 0.0 L38.0 96.0 L40.0 96.0 L40.0 0.0 L42.0 0.0 L42.0 96.0 L44.0 96.0 L44.0 0.0 L46.0 0.0 L46.0 96.0 L48.0 96.0 L48.0 0.0", "rapid": false}]}};
+const geometry=by('job-geometry');
+const originalGeometry=geometry.innerHTML;
+const defaultJob={name:'FIXTURE_PLATES.TAP',sample:true};
+let loadedJob=defaultJob, maintenance=null;
+
+function setGeometry(job){
+ geometry.replaceChildren();
+ if(job.sample)geometry.innerHTML=originalGeometry;
+ else for(const group of job.groups||[]){
+  const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d',group.d);p.setAttribute('fill','none');
+  p.setAttribute('stroke',group.rapid?'#9793ad':'#b6a5ff');
+  p.setAttribute('stroke-width','.31');if(group.rapid)p.setAttribute('stroke-dasharray','0.8 0.8');
+  geometry.append(p);
+ }
+ const paths=job.sample?geometry.querySelectorAll('[id^="route"]'):geometry.querySelectorAll('path');
+ sections=[...paths].map(p=>({p,len:p.getTotalLength()})).filter(s=>s.len>0);
+ total=sections.reduce((v,s)=>v+s.len,0);elapsed=0;
+ const name=job.name.toUpperCase();set('job-name',name.length>24?name.slice(0,21)+'…':name);
+}
+function linearJob(source,name){
+ const groups=[];let px=0,py=0,mode=0,factor=1,relative=false;
+ for(const raw of source.toUpperCase().split(/\r?\n/)){
+  const line=raw.replace(/\([^)]*\)/g,'').split(/[;\[]/)[0].trim();
+  if(!line||line==='%')continue;
+  const tokens=[...line.matchAll(/([A-Z])\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))/g)];
+  if(line.replace(/([A-Z])\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))/g,'').trim())return {name};
+  let x,y;
+  for(const [,letter,num] of tokens){
+   const v=Number(num);
+   if(letter==='G'){
+    if(v===0||v===1)mode=v;
+    else if(v===20||v===21)factor=v===21?1/25.4:1;
+    else if(v===90||v===91)relative=v===91;
+    else if(![17,40,49,80,94].includes(v))return {name};
+   }else if(letter==='X')x=v;else if(letter==='Y')y=v;
+   else if(letter==='M'&&![2,3,4,5,6,7,8,9,30].includes(v))return {name};
+   else if(!['Z','N','S','F','M','T'].includes(letter))return {name};
+  }
+  if(x===undefined&&y===undefined)continue;
+  const nx=x===undefined?px:x*factor+(relative?px:0),ny=y===undefined?py:y*factor+(relative?py:0);
+  if(nx!==px||ny!==py){
+   if(!groups.length||groups.at(-1).rapid!==(mode===0))groups.push({rapid:mode===0,d:'M'+px+' '+py});
+   groups.at(-1).d+='L'+nx+' '+ny;
+  }
+  px=nx;py=ny;
+ }
+ return {name,groups};
+}
+function openFile(){if(state.mode==='ready')by('job-file').click();}
+by('job-file').onchange=async e=>{
+ const file=e.target.files[0];e.target.value='';if(!file||state.mode!=='ready')return;
+ state.mode='loading';drawState();
+ try{
+  const source=await file.text();if(state.mode!=='loading')return;
+  loadedJob=linearJob(source,file.name);setGeometry(loadedJob);$control('mdi').value='';attr('mdiHint','opacity',1);
+  writeLog(file.name+' LOADED');if(!sections.length)writeLog('XY PREVIEW UNAVAILABLE FOR THIS FILE');
+ }catch{writeLog('COULD NOT READ FILE');}
+ finally{if(state.mode==='loading'){state.mode='ready';drawState();}}
+};
+function startMaintenance(key){
+ if(state.mode!=='ready')return;
+ maintenance=key;setGeometry(macroPreviews[key]);runJob();
+ writeLog((key==='sweep'?'SWEEP.MAC':'FLYCUT.TAP')+' · SIMULATED');
+}
+function endMaintenance(){
+ if(maintenance){maintenance=null;setGeometry(loadedJob);}
+}
+
+function writeLog(msg){
+ const t=new Date().toTimeString().slice(0,8);
+ historyRows.push([t,msg.toUpperCase()]);[['',''],['',''],...historyRows].slice(-5).forEach(([time,s],i)=>{
+  set('time'+i,time);set('msg'+i,s.length>38?s.slice(0,37)+'…':s);
+ });
+ by('announce').textContent=msg.toUpperCase();
+}
+function shade(k,on){const [f,s]=on?palettes.on:palettes.off;attr(k+'-bg','fill',f);attr(k+'-bg','stroke',s);}
+function unit(){return units[state.unit];}
+function drawPos(){
+ const [sym,f]=unit();set('position-unit','('+sym+')');set('speed-unit','('+sym+'/MIN)');
+ axes.forEach((a,i)=>{for(const [key,val] of [['pos'+a,(state.pos[i]*f).toFixed(3)],['feed'+a,(state.feed[i]*f*state.override/100).toFixed(2).replace(/\.00$/,'')]]){
+   set(key+'-text',val);if(document.activeElement!==$control(key))$control(key).value=val;
+ }});
+ const x=435+clamp(state.pos[0],0,48)*5.84,y=750-clamp(state.pos[1],0,96)*5.84;
+ attr('head','transform','translate('+x+' '+y+')');
+}
+function drawOverride(){
+ const y=503-(state.override-5)*86/195;
+ attr('override-knob','cy',y);attr('override-fill','y',y);attr('override-fill','height',503-y);
+ set('override-value',state.override+'%');$control('override').setAttribute('aria-valuetext',state.override+' percent');
+ drawPos();
+}
+function drawRack(){
+ const nSel=state.selected.size;
+ for(let n=1;n<=12;n++){
+  const key='tool'+n,active=n===state.tool,chosen=state.selected.has(n);
+  attr(key+'-bg','fill',active?'#7d71f5':chosen?'#e8e2ff':'#f7f7fb');
+  attr(key+'-bg','stroke',chosen?'#4d369a':active?'#5343aa':'#dddce8');
+  attr(key+'-bg','stroke-width',chosen?2.6:1);
+  attr(key+'-bit','color',active?'white':'#656579');attr(key+'-label','fill',active?'white':'#262535');
+  $control(key).setAttribute('aria-pressed',String(chosen));
+ }
+ set('active-tool','48 × 96 IN · '+(state.tool?'T'+state.tool:'NO TOOL'));attr('active-tool','opacity',nSel?0:1);
+ set('head-tool',state.tool?'T'+state.tool:'—');
+ set('measure-text','MEASURE ('+nSel+')');for(const id of ['measure-bg','measure-text'])attr(id,'opacity',nSel?1:0);
+ $control('measure').hidden=!nSel;
+}
+function drawButtons(){
+ for(const key of ['spindle','vacuum','table','boot','gate']){
+  shade(key,state[key]);set(key+'-state',state[key]?'ON':'OFF');$control(key).setAttribute('aria-pressed',String(state[key]));
+  attr(key+'-dot','fill',state[key]?'#4fdb65':'#e04343');
+ }
+ for(const [i,dist] of steps.entries()){
+  const key='inc'+i,on=!state.transit&&dist===state.inc;shade(key,on);$control(key).setAttribute('aria-pressed',String(on));
+ }
+ for(const k of Object.keys(preset)){shade(k,state.transit===k);$control(k).setAttribute('aria-pressed',String(state.transit===k));}
+ const p=(state.rpm-minRPM)/(maxRPM-minRPM);attr('rpm-fill','width',316*p);attr('rpm-knob','cx',32+316*p);set('rpm-text',state.rpm.toLocaleString('en-US')+' RPM');$control('rpm').value=state.rpm;
+}
+function drawState(){
+ const idle=state.mode==='ready',stopped=state.mode==='stopped';
+ const playLabel=state.mode==='run'?'PAUSE':state.mode==='paused'?'RESUME':'START';
+ attr('run-icon','d',state.mode==='run'?'M324 76h4v16h-4z M332 76h4v16h-4z':'M324 76 L336 84 L324 92 Z');
+ for(const [key,label] of [['start',playLabel],['estop',stopped?'RESET SIMULATED E-STOP':'E-STOP']]){
+  $control(key).title=label;$control(key).setAttribute('aria-label',label);
+ }
+ for(const c of spec){if(c.kind==='menu'||['estop','history'].includes(c.key))continue;
+  if(c.key==='override'){$control(c.key).disabled=!['ready','run','paused'].includes(state.mode);continue;}
+  $control(c.key).disabled=c.key==='start'?(!['ready','run','paused'].includes(state.mode)):!idle;
+ }drawRack();drawPos();drawButtons();
+}
+function showDialog(title,body,action,fn){
+ const dlg=by('dialog');if(dlg.open)dlg.close();set('dlg-title',title);by('dlg-body').replaceChildren();
+ if(typeof body==='string'){const p=document.createElement('p');p.textContent=body;by('dlg-body').append(p);}else by('dlg-body').append(body);
+ const button=by('dlg-action');button.hidden=!action;button.textContent=action||'';button.onclick=()=>{if(fn?.()!==false)dlg.close();};dlg.showModal();
+}
+function showHistory(){
+ const box=document.createElement('ol');box.className='history';
+ for(const [t,m] of historyRows){const row=document.createElement('li');const time=document.createElement('span');time.textContent=t;row.append(time,document.createTextNode(m));box.append(row);}
+ showDialog('TERMINAL HISTORY',box);
+}
+function pickup(n){state.tool=n;state.selected.clear();drawRack();writeLog(n?'T'+n+' PICKED UP':'TOOL UNLOADED');}
+function measure(ns,batch){
+ if(!ns.length||state.mode!=='ready')return;
+ for(const n of ns){state.tool=n;writeLog('T'+n+' MEASURED (SIMULATED)');}
+ if(batch){state.tool=0;writeLog(ns.length+' MEASURED · TOOL UNLOADED');}
+ state.selected.clear();drawRack();
+}
+function setJog(k){
+ if(state.mode!=='ready')return;
+ if(k.startsWith('inc')){state.inc=steps[Number(k.slice(3))];state.transit=null;writeLog('JOG INCREMENT '+state.inc+' IN');}
+ else{state.transit=k;const [xy,,z]=preset[k];writeLog(k+' · XY '+xy+' / Z '+z+' IN/MIN');}drawButtons();
+}
+function axisMove(k,seconds){
+ const i=axes.indexOf(k[0].toUpperCase());const amount=state.transit?preset[state.transit][i]*seconds/60:state.inc;
+ const bounds=[[-1.318,49.687],[-1.824,104.252],[-12,6]];state.pos[i]=clamp(state.pos[i]+(k[1]==='p'?1:-1)*amount,...bounds[i]);drawPos();
+}
+function stopJog(){clearInterval(jogTimer);jogTimer=0;}
+function pointerJog(e,k){
+ if(e.button!==0||state.mode!=='ready')return;e.preventDefault();stopJog();e.currentTarget.setPointerCapture?.(e.pointerId);
+ if(!state.transit){axisMove(k,0);return;}
+ let prev=performance.now();axisMove(k,.025);jogTimer=setInterval(()=>{const now=performance.now();axisMove(k,Math.min(.1,(now-prev)/1000));prev=now;},35);
+}
+function cancelMotion(){cancelAnimationFrame(frame);clearTimeout(warmTimer);stopJog();lastTime=0;}
+let previewRapid=false;
+function frameStep(t){
+ if(state.mode!=='run')return;
+ if(lastTime)elapsed+=Math.min(.15,(t-lastTime)/1000)*20*(previewRapid?1:state.override/100);lastTime=t;
+ if(elapsed>=total){elapsed=total;endMaintenance();state.mode='ready';state.spindle=false;drawState();writeLog('JOB PREVIEW COMPLETE');return;}
+ let d=elapsed;for(const {p,len} of sections){if(d<=len){previewRapid=p.hasAttribute('stroke-dasharray');const pt=p.getPointAtLength(d);state.pos=[pt.x,pt.y,state.pos[2]];break;}d-=len;}
+ drawPos();frame=requestAnimationFrame(frameStep);
+}
+function runJob(){
+ if(state.mode==='run'){cancelMotion();state.mode='paused';state.spindle=false;drawState();writeLog('JOB PREVIEW PAUSED');return;}
+ if(!['ready','paused'].includes(state.mode))return;
+ if(!sections.length){writeLog('XY PREVIEW UNAVAILABLE FOR THIS FILE');return;}
+ if(state.mode==='ready'){elapsed=0;previewRapid=sections[0].p.hasAttribute('stroke-dasharray');}
+ state.mode='run';state.spindle=maintenance!=='sweep';drawState();writeLog('RUNNING JOB PREVIEW');frame=requestAnimationFrame(frameStep);
+}
+function estop(){
+ if(state.mode==='stopped'){showDialog('RESET E-STOP','RETURN THE SIMULATED CONTROLLER TO IDLE?','RESET',()=>{state.mode='ready';drawState();writeLog('STOP RESET · CONTROLLER READY');});return;}
+ cancelMotion();endMaintenance();state.mode='stopped';state.spindle=false;drawState();writeLog('SIMULATED E-STOP · MOTION STOPPED');
+}
+function warmup(){
+ const oldRPM=state.rpm;const stages=[12000,15000,18000];state.mode='warm';state.spindle=true;
+ function stage(i){
+  if(state.mode!=='warm')return;
+  if(i===stages.length){state.mode='ready';state.spindle=false;state.rpm=oldRPM;writeLog('WARMUP PREVIEW COMPLETE');drawState();return;}
+  state.rpm=stages[i];drawState();writeLog('WARMUP PREVIEW · '+stages[i]+' RPM');warmTimer=setTimeout(()=>stage(i+1),1100);
+ }stage(0);
+}
+function toggle(k){state[k]=!state[k];if(k==='vacuum')state.table=state.vacuum;
+ if(k==='spindle')state.boot=state.gate=state.spindle;
+ drawButtons();writeLog((({boot:'DUST BOOT',gate:'DUST GATE',table:'VAC TABLE'})[k]||k)+' '+(state[k]?'ON':'OFF'));
+}
+function mdi(text){
+ const cmd=text.trim().toUpperCase();writeLog('MDI  '+cmd);
+ if(['G43','G54','G98'].includes(cmd)){
+  const alert=cmd==='G98';
+  attr('mode-bg','fill',alert?'#e04343':'#ebebed');attr('mode-text','fill',alert?'white':'#262535');
+  set('mode-text',cmd);writeLog(cmd+' BADGE PREVIEW');return;
+ }
+ if(/^T(0|[1-9]|1[0-2])$/.test(cmd))return pickup(Number(cmd.slice(1)));
+ if(/^T([1-9]|1[0-2])\.1$/.test(cmd))return measure([Number(cmd.slice(1,-2))],false);
+ if(/^M0?[35]$/.test(cmd)){const on=Number(cmd.slice(1))===3;if(state.spindle!==on)toggle('spindle');return;}
+ if(/^S\d+$/.test(cmd)){const n=Number(cmd.slice(1));if(n<minRPM||n>maxRPM)return writeLog('RPM RANGE 200–18,000');state.rpm=n;drawButtons();return;}
+ if(/^G0?[01]\s*(?:[XYZ]\s*[-+]?(?:\d+(?:\.\d*)?|\.\d+)\s*)+$/.test(cmd)){
+  const pos=state.pos.slice();for(const [,axis,v] of cmd.matchAll(/([XYZ])\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))/g))pos[axes.indexOf(axis)]=Number(v)/unit()[1];state.pos=pos;drawPos();return;
+ }
+ writeLog('COMMAND OUTSIDE SIMULATED SUBSET');
+}
+function start(){
+ if(['run','paused'].includes(state.mode))return runJob();if(state.mode!=='ready')return;
+ const input=$control('mdi');if(input.value.trim()){mdi(input.value);input.value='';input.dispatchEvent(new Event('input'));}else runJob();
+}
+function press(c,e){
+ if(c.kind==='menu')return topMenu(c.index);
+ if(c.key==='history')return showHistory();if(c.key==='estop')return estop();if(c.key==='start')return start();
+ if(state.mode!=='ready')return;
+ if(c.kind==='tool'){
+  if(e.shiftKey){if(state.selected.has(c.n))state.selected.delete(c.n);else state.selected.add(c.n);drawRack();}
+  else pickup(c.n);return;
+ }
+ if(c.key==='measure')return measure([...state.selected].sort((a,b)=>a-b),true);
+ if(c.key==='open')return openFile();
+ if(c.key==='sweep'||c.key==='flycut')return startMaintenance(c.key);
+ if(c.key==='warmup')return warmup();
+ if(c.key==='park'||c.key==='home'){
+  const park=c.key==='park';state.pos=park?[-1.3,-1.8,-11.824]:[0,0,0];if(park){state.tool=0;state.selected.clear();state.spindle=false;}
+  drawState();writeLog(park?'PARKED · TOOL UNLOADED':'HOMING PREVIEW COMPLETE');return;
+ }
+ if(Object.hasOwn(preset,c.key)||c.key.startsWith('inc'))return setJog(c.key);
+ if(['spindle','vacuum','table','boot','gate'].includes(c.key))return toggle(c.key);
+ if(/^[xyz][pm]$/.test(c.key)&&e.detail===0)axisMove(c.key,.05);
+}
+function create(c){
+ const input=['number','range','text'].includes(c.kind),el=document.createElement(input?'input':'button');
+ el.id='control-'+c.key;el.className='hit '+c.kind;el.type=input?c.kind:'button';
+ el.setAttribute('aria-label',c.label);el.title=Object.hasOwn(preset,c.key)?c.label+' · XY '+preset[c.key][0]+' / Z '+preset[c.key][2]+' IN/MIN':c.kind==='tool'?c.label+' · CLICK TO PICK UP · SHIFT-CLICK TO SELECT · RIGHT-CLICK TO MEASURE':c.label;
+ Object.assign(el.style,{left:c.x/7.68+'%',top:c.y/10.24+'%',width:c.w/7.68+'%',height:c.h/10.24+'%'});
+ if(c.clip)el.style.clipPath=c.clip;
+ if(!input)el.onclick=e=>press(c,e);
+ if(c.kind==='menu'){el.setAttribute('aria-haspopup','menu');el.setAttribute('aria-expanded','false');el.onpointerenter=()=>{if(rootMenu>=0&&rootMenu!==c.index)topMenu(c.index);};}
+ if(c.kind==='tool'){el.oncontextmenu=e=>{e.preventDefault();if(state.mode==='ready')measure([c.n],false);};}
+ if(/^[xyz][pm]$/.test(c.key)){el.onpointerdown=e=>pointerJog(e,c.key);el.onlostpointercapture=el.onpointercancel=el.onpointerup=stopJog;}
+ if(c.kind==='number'){el.step='any';el.value=c.value;el.onfocus=()=>el.select();el.onblur=()=>{const n=el.valueAsNumber;
+  if(Number.isFinite(n)&&state.mode==='ready'){const pos=c.key.startsWith('pos'),i=axes.indexOf(c.key.slice(-1));if(pos||n>=0)(pos?state.pos:state.feed)[i]=n/unit()[1]/(pos?1:state.override/100);}
+  drawPos();const pos=c.key.startsWith('pos');el.value=by(c.key+'-text').textContent;
+ };el.onkeydown=e=>{if(e.key==='Escape'){el.value=by(c.key+'-text').textContent;el.blur();}if(e.key==='Enter')el.blur();};}
+ if(c.kind==='text'){el.autocomplete='off';el.spellcheck=false;el.oninput=()=>attr('mdiHint','opacity',el.value?0:1);el.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();start();}};}
+ if(c.key==='override'){
+  el.min=5;el.max=200;el.step=5;el.value=state.override;el.setAttribute('aria-orientation','vertical');el.setAttribute('aria-valuetext',state.override+' percent');
+  el.oninput=()=>{state.override=Number(el.value);drawOverride();};
+ }
+ if(c.key==='rpm'){el.min=minRPM;el.max=maxRPM;el.step=100;el.value=12000;el.oninput=()=>{state.rpm=Number(el.value);drawButtons();};}
+ by('controls').append(el);
+}
+function showNative(path){
+ showDialog(path.at(-1),path.join('  /  ')+' OPENS A NATIVE WINCNC WINDOW OR COMMAND ON THE CONTROLLER. THIS MOCKUP PREVIEWS ITS MENU LOCATION.');
+}
+function menuAction(id,path){
+ if(id===32775)return openFile();
+ if(id===32776)return showHistory();
+ if(id===57664)return showDialog('ABOUT','WINCNC 3.1.00 · PORTRAIT INTERFACE MOCKUP · 768 × 1024');
+ if([32781,32782,32783].includes(id))return setJog(['slow','medium','fast'][id-32781]);
+ if([32784,32785,32786,32787].includes(id))return setJog('inc'+(32787-id));
+ if(id===32788&&state.mode==='ready'){
+  const lab=document.createElement('label');lab.textContent='JOG INCREMENT ('+unit()[0]+') ';
+  const f=document.createElement('input');f.type='number';f.min='0.00001';f.step='any';f.value=state.inc*unit()[1];lab.append(f);
+  return showDialog('CUSTOM JOG INCREMENT',lab,'APPLY',()=>{if(!(f.valueAsNumber>0)){f.reportValidity();return false;}state.inc=f.valueAsNumber/unit()[1];state.transit=null;drawButtons();writeLog('CUSTOM JOG '+state.inc+' IN');});
+ }
+ if(id>=32823&&id<=32825){state.unit=['INCHES','CENTIMETERS','MILLIMETERS'][id-32823];drawPos();writeLog('READOUT IN '+state.unit);return;}
+ if(id===32780&&state.mode==='ready')return runJob();
+ if(id===32821){historyRows.push(['',''],['','']);writeLog('CONSOLE CLEARED');return;}
+ if(id===32812||id===32779){drawPos();return writeLog('VIEW REFRESHED');}
+ if(id===32854)return showDialog('OUTPUTS',['spindle','vacuum','table','boot','gate'].map(k=>(({table:'VAC TABLE',boot:'DUST BOOT',gate:'DUST GATE'})[k]||k.toUpperCase())+'  '+(state[k]?'ON':'OFF')).join('\n'));
+ if(id===32863)return showDialog('POSITION INFORMATION',axes.map((a,i)=>a+'   '+(state.pos[i]*unit()[1]).toFixed(3)+' '+unit()[0]).join('\n'));
+ if(id===32818)return showDialog('TOOL POSITIONS','12 RACK POSITIONS · '+(state.tool?'T'+state.tool+' ACTIVE':'NO ACTIVE TOOL'));
+ return showNative(path);
+}
+function closeMenus(restore=false){
+ const old=rootMenu;by('menus').replaceChildren();if(old>=0){$control('menu'+old).setAttribute('aria-expanded','false');if(restore)$control('menu'+old).focus();}rootMenu=-1;
+}
+function drop(items,path,anchor,level){
+ const host=by('menus'),area=by('controller').getBoundingClientRect();
+ [...host.children].slice(level).forEach(n=>n.remove());
+ const box=document.createElement('div');box.className='popup';box.setAttribute('role','menu');box.setAttribute('aria-label',path.join(' / '));box._anchor=anchor;host.append(box);
+ function removeDeeper(){[...host.children].slice(level+1).forEach(n=>n.remove());}
+ for(const item of items){if(!item.name){box.append(document.createElement('hr'));continue;}
+  const [name,shortcut]=item.name.replaceAll('&','').toUpperCase().split('\t');const b=document.createElement('button');
+  b.type='button';b.setAttribute('role','menuitem');const label=document.createElement('span');label.textContent=name;b.append(label);
+  if(shortcut||item.items){const hint=document.createElement('small');hint.textContent=item.items?'▸':shortcut;b.append(hint);}
+  const open=()=>drop(item.items,[...path,name],b,level+1);
+  if(item.items)b.setAttribute('aria-haspopup','menu');
+  b.onpointerenter=()=>{if(item.items)open();else removeDeeper();};
+  b.onclick=()=>{if(item.items){open().querySelector('button').focus();}else{closeMenus(true);menuAction(item.id,[...path,name]);}};
+  b.onkeydown=e=>{
+   const siblings=[...box.querySelectorAll('button')],i=siblings.indexOf(b);
+   if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){
+    e.preventDefault();removeDeeper();siblings[e.key==='Home'?0:e.key==='End'?siblings.length-1:(i+(e.key==='ArrowUp'?-1:1)+siblings.length)%siblings.length].focus();
+   }else if(e.key==='ArrowRight'&&item.items){e.preventDefault();open().querySelector('button').focus();}
+   else if(e.key==='ArrowLeft'&&level){e.preventDefault();[...host.children].slice(level).forEach(n=>n.remove());anchor.focus();}
+   else if(!level&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();topMenu((rootMenu+(e.key==='ArrowLeft'?-1:1)+menus.length)%menus.length,true);}
+  };box.append(b);
+ }
+ const a=anchor.getBoundingClientRect(),r=box.getBoundingClientRect();
+ let x=(level?a.right:a.left)-area.left,y=(level?a.top:a.bottom)-area.top;
+ if(level&&x+r.width>area.width)x=a.left-area.left-r.width;
+ x=clamp(x,0,Math.max(0,area.width-r.width));y=clamp(y,0,Math.max(0,area.height-r.height));
+ box.style.left=x+'px';box.style.top=y+'px';return box;
+}
+function topMenu(i,focus=false){
+ const same=rootMenu===i;closeMenus();if(same&&!focus)return;
+ rootMenu=i;const anchor=$control('menu'+i);anchor.setAttribute('aria-expanded','true');
+ const box=drop(menus[i].items,[menus[i].name.replaceAll('&','').toUpperCase()],anchor,0);
+ if(focus)box.querySelector('button').focus();
+}
+spec.forEach(create);setGeometry(defaultJob);
+for(let i=0;i<menus.length;i++)$control('menu'+i).onkeydown=e=>{if(['ArrowDown','Enter',' '].includes(e.key)){e.preventDefault();topMenu(i,true);}};
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('#menus,.hit.menu'))closeMenus();});
+document.addEventListener('keydown',e=>{
+ if(by('dialog').open)return;
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='o'){e.preventDefault();closeMenus();openFile();return;}
+ if(e.key==='Escape'){closeMenus(true);stopJog();return;}if(e.key==='Tab')closeMenus();
+ if(e.target.matches('input')||e.altKey||e.ctrlKey||e.metaKey)return;
+ const k=({F2:'slow',F3:'medium',F4:'fast',F6:'inc3',F7:'inc2',F8:'inc1',F9:'inc0'})[e.key];
+ if(k){e.preventDefault();setJog(k);}
+});
+window.addEventListener('blur',()=>{closeMenus();stopJog();});window.addEventListener('resize',()=>closeMenus());
+by('dlg-close').onclick=()=>by('dialog').close();drawState();
+</script></body></html>
